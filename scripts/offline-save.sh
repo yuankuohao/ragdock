@@ -5,7 +5,7 @@ cd "$(dirname "$0")/.."
 
 mkdir -p offline
 STAMP=$(date +%Y%m%d)
-OUT="offline/ragdoc-images-${STAMP}.tar.gz"
+OUT="offline/ragdock-images-${STAMP}.tar.gz"
 
 echo "[offline] 构建本地镜像"
 docker compose build
@@ -21,7 +21,7 @@ echo "[offline] 共 $(wc -l < "offline/images-${STAMP}.txt") 个镜像，开始�
 docker save $(cat "offline/images-${STAMP}.txt") | gzip -1 > "$OUT"
 
 cat > offline/MANIFEST.txt <<EOF
-ragdoc 离线包
+ragdock 离线包
 导出时间: $(date '+%F %T')
 RAGFlow:  ${RAGFLOW_VERSION:-unknown}
 镜像清单: images-${STAMP}.txt

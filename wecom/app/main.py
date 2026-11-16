@@ -15,7 +15,7 @@ from .ragflow import RagFlowClient
 from .wecom_api import WeComApi
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
-logger = logging.getLogger("ragdoc.wecom")
+logger = logging.getLogger("ragdock.wecom")
 
 MAX_BODY = 64 * 1024
 
@@ -32,7 +32,7 @@ async def lifespan(_: FastAPI):
     state.clear()
 
 
-app = FastAPI(title="ragdoc wecom adapter", lifespan=lifespan)
+app = FastAPI(title="ragdock wecom adapter", lifespan=lifespan)
 
 
 @app.get("/healthz")

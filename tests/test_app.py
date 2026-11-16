@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 CORP_ID = "wwtest0001"
-TOKEN = "ragdoctoken"
+TOKEN = "ragdocktoken"
 RAW_KEY = bytes(range(32))
 AES_KEY = base64.b64encode(RAW_KEY).decode().rstrip("=")
 

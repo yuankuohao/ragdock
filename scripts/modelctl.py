@@ -63,7 +63,7 @@ def render(env_path: Path, out_path: Path) -> None:
     chat_model = require(env, "LLM_MODEL")
     embed_base = require(env, "EMBED_BASE_URL").rstrip("/")
     embed_model = require(env, "EMBED_MODEL")
-    master_key = env.get("LITELLM_MASTER_KEY", "sk-ragdoc-local")
+    master_key = env.get("LITELLM_MASTER_KEY", "sk-ragdock-local")
 
     entries: list[str] = []
 
@@ -109,7 +109,7 @@ def render(env_path: Path, out_path: Path) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="ragdoc 模型配置工具")
+    parser = argparse.ArgumentParser(description="ragdock 模型配置工具")
     sub = parser.add_subparsers(dest="cmd", required=True)
 
     p_render = sub.add_parser("render", help="渲染网关配置")
