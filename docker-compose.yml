@@ -1,0 +1,47 @@
+name: ${COMPOSE_PROJECT_NAME:-ragdoc}
+
+services:
+  gateway:
+    image: ghcr.io/berriai/litellm:main-stable
+    restart: unless-stopped
+    command: ["--config", "/app/config.yaml", "--port", "4000", "--num_workers", "1"]
+    env_file:
+      - .env
+    volumes:
+      - ./gateway/generated.yaml:/app/config.yaml:ro
+    ports:
+      - "${GATEWAY_PORT:-4000}:4000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test:
+        - "CMD-SHELL"
+        - "python -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:4000/health/liveliness',timeout=3)\""
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  wecom:
+    build:
+      context: ./wecom
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${WECOM_PORT:-8088}:8088"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      gateway:
+        condition: service_started
+    healthcheck:
+      test:
+        - "CMD"
+        - "python"
+        - "-c"
+        - "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8088/healthz',timeout=3)"
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 10s

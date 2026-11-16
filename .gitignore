@@ -1,0 +1,10 @@
+.env
+upstream/docker-compose.yml
+upstream/.env
+gateway/generated.yaml
+offline/*.tar
+offline/*.tar.gz
+images/*.tar
+__pycache__/
+*.pyc
+.venv/
